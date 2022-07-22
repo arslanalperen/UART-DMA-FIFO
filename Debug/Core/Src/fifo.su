@@ -1,0 +1,5 @@
+../Core/Src/fifo.c:14:6:fifo_init	4	static
+../Core/Src/fifo.c:25:6:fifo_init_control	8	static
+../Core/Src/fifo.c:34:16:fifo_read	24	static
+../Core/Src/fifo.c:58:16:fifo_write	24	static
+../Core/Src/fifo.c:81:16:UART_fifo_write	24	static
