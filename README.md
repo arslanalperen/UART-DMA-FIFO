@@ -13,23 +13,9 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![Github][github-shield]][github-url]  
 
-<!--
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
--->
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!--
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-  -->
   <h3 align="center">UART-DMA-FIFO</h3>
 
   <p align="center">
@@ -56,7 +42,7 @@
     <li>
       <a href="#fifo-functions">FIFO Functions</a>
       <ul>
-        <li><a href="#fifo-init">fifo_init</a></li>
+        <li><a href="#fifo-init">fifo init</a></li>
         <li><a href="#fifo-init-control">fifo_init_control</a></li>
         <li><a href="#fifo-read">fifo_read</a></li>
         <li><a href="#fifo-write">fifo_write</a></li>
@@ -64,14 +50,14 @@
       </ul>
     </li>
     <li>
-      <a href="#fifo-functions-detailed">FIFO Functions - Detailed</a>
+      <a href="#fifo-functions-detailed">FIFO Functions Detailed</a>
       <ul>
         <li><a href="#variables">Variables</a></li>
-        <li><a href="#fifo-init">fifo_init</a></li>
-        <li><a href="#fifo-init-control">fifo_init_control</a></li>
-        <li><a href="#fifo-read">fifo_read</a></li>
-        <li><a href="#fifo-write">fifo_write</a></li>
-        <li><a href="#uart-fifo-write">UART_fifo_write</a></li>
+        <li><a href="#fifo-init-detailed">fifo init Detailed</a></li>
+        <li><a href="#fifo-init-control-detailed">fifo init control Detailed</a></li>
+        <li><a href="#fifo-read-detailed">fifo read Detailed</a></li>
+        <li><a href="#fifo-write-detailed">fifo write Detailed</a></li>
+        <li><a href="#uart-fifo-write-detailed">UART fifo write Detailed</a></li>
         <li><a href="#timer">Timer</a></li>
         <li><a href="#dma-tx-complete-callback">DMA TX Complete Callback</a></li>
         <li><a href="#main-code">Main Code</a></li>
@@ -121,38 +107,38 @@ The `BUF_SIZE` definition specifies how many `DATA_SIZE` size data the FIFO buff
 
 FIFO variables are gathered under a struct. The `buf` variable is directly the FIFO buffer itself. The reason why it is defined as Uint8_t type is to determine that the data to be sent will be of this type.
 
-<img src="Images/fifo-diagram.png">
+<div align="center"> <img src="Images/fifo-diagram.png"> </div>
 
 The diagram at above shows the FIFO structure. The "head" variable specifies which cell of the buffer you are in when writing data to the FIFO. The “tail” variable indicates which cell it is on when reading data from FIFO. The variable “size” specifies how many bytes the FIFO is. The "FIFOindex" variable shows how many 32 bytes of data are in the sequence when writing data to FIFO. The "UARTindex" variable shows how many 32 bytes of data are in the sequence when writing data from FIFO to UART. 10 data packets are filled into FIFO in a row as shown in diagram above.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## FIFO Functions
-### fifo_init
+### fifo init
 
 The "fifo_init" function init the FIFO by assigning the variables of the FIFO inside the functions, if the code is run for the first time. It does not need to be called in the main code.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### fifo_init_control
+### fifo init control
 
 The "fifo_init_control" function is the function that checks whether FIFO has been inited before among other functions. It does not need to be called in the main code.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### fifo_read
+### fifo read
 
 The "fifo_read" function is the function that reads the data from FIFO. It reads "DATA_SIZE" size data from FIFO each time it is called. If only writing is to be done over UART, it does not need to be called in the main code.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### fifo_write
+### fifo write
 
 The "fifo_write" function is the one that writes data to FIFO. Each time it is called, it writes the given data to the FIFO by "DATA_SIZE". If the given data is smaller than "DATA_SIZE", it fills the remaining bytes with 0. If it is a larger data, it only writes as much as "DATA_SIZE". It can be called in the main code where data needs to be written to FIFO.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### UART_fifo_write
+### UART fifo write
 
 The "UART_fifo_write" function is the function that writes the data from FIFO over UART with DMA. It can be called in the main code where the next data to be read from the FIFO should be written via DMA and UART.
 
@@ -160,7 +146,7 @@ In the sample project, this function is used with the timer. Therefore, there is
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## FIFO Functions - Detailed
+## FIFO Functions Detailed
 ### Variables
 
 The "DMA_WRITE_BUF" buffer is where  the data from FIFO is transferred before transmitting to UART with DMA. Transfer is provided by giving this buffer to the DMA function.
@@ -184,7 +170,7 @@ The “STATUS_DMA” variable stores the value returned by the DMA function afte
 
 <p align="right">(<a href="#top">back to top</a>)</p>
   
-### fifo_init
+### fifo init Detailed
 
 ```sh
 void fifo_init(){
@@ -200,7 +186,7 @@ It is the function that initializes the variables of FIFO.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### fifo_init_control
+### fifo init control Detailed
 
 ```sh
 void fifo_init_control(){
@@ -215,7 +201,7 @@ The "fifo_init_control" function is the function that checks whether FIFO is ini
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### fifo_read
+### fifo read Detailed 
 
 ```sh
 unsigned short fifo_read(uint8_t * buf){
@@ -248,7 +234,7 @@ The expression “tail != head” means that data is writting to the FIFO. If th
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### fifo_write
+### fifo write Detailed
 
 ```sh
 unsigned short fifo_write(uint8_t * buf){
@@ -278,7 +264,7 @@ The same applies to the "i" and "bufIndex" variables as written in the "fifo_rea
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### UART_fifo_write
+### UART fifo write Detailed
 
 ```sh
 unsigned short UART_fifo_write(UART_HandleTypeDef *huart){
@@ -397,11 +383,11 @@ While the code writes the data to FIFO at intervals of 2 milliseconds in the whi
 
 Whether the code works properly or not has been tested with both RealTerm and logic analyzer.
 
-<img src="Images/logic-analyzer.png">
+<div align="center"> <img src="Images/logic-analyzer.png"> </div>
 
 The data was printed to the UART in the order it was sent in the code. The timer duration is set to approximately 1 ms. It can be seen that the distance between data transfer is close to 1ms.
 
-<img src="Images/realterm.png">
+<div align="center"> <img src="Images/realterm.png"> </div>
 
 As can be seen at above, the data was printed to the UART as it was sent.
 
@@ -409,21 +395,6 @@ As can be seen at above, the data was printed to the UART as it was sent.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-<!--
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/arslanalperen/UART-DMA-FIFO/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/arslanalperen/UART-DMA-FIFO/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/arslanalperen/UART-DMA-FIFO/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/arslanalperen/UART-DMA-FIFO/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/arslanalperen
-[product-screenshot]: images/screenshot.png
--->
 
 [instagram-shield]: https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white
 [github-shield]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
