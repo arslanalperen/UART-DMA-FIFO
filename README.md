@@ -381,7 +381,7 @@ While the code writes the data to FIFO at intervals of 2 milliseconds in the whi
 
 ## Review
 
-Whether the code works properly or not has been tested with both RealTerm and logic analyzer.
+Even though the code seems to work correctly several times, the code does NOT work properly.
 
 <div align="center"> <img src="Images/logic-analyzer.png"> </div>
 
